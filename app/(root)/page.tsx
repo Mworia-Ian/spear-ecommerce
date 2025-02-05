@@ -1,7 +1,9 @@
 
 const HomePage = () => {
+  
+
   return ( 
-    <></>
+    <>Prostore</>
    );
 }
  
