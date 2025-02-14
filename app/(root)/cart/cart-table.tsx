@@ -30,7 +30,10 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
       <h1 className="py-4 h2-bold">Shopping Cart</h1>
       {!cart || cart.items.length === 0 ? (
         <div>
-          Cart is empty. <Link href="/">Go Shopping</Link>
+          Cart is empty.{" "}
+          <Link href="/">
+            <span className="text-blue-900">Go Shopping</span>
+          </Link>
         </div>
       ) : (
         <div className="grid md:grid-cols-4 md:gap-5">
@@ -110,7 +113,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                       </Button>
                     </TableCell>
                     <TableCell className="text-right">
-                      KES{item.price}
+                      Ksh{item.price}
                     </TableCell>
                   </TableRow>
                 ))}

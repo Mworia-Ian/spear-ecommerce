@@ -27,3 +27,10 @@ export const shippingAddressDefaultValues = {
   postalCode: "",
   country: "",
 };
+
+export const PAYMENT_METHODS = process.env.PAYMENT_METHOD
+  ? process.env.PAYMENT_METHODS?.split(", ")
+  : ["MPesa", "PayPal", "Stripe", "CashOnDelivery"];
+
+export const DEFAULT_PAYMENT_METHOD =
+  process.env.DEFAULT_PAYMENT_METHOD || "Paypal";
