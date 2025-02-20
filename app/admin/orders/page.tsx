@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
-import { getMyOrders } from "@/lib/actions/order.actions";
+import { requireAdmin } from "@/lib/auth-guard";
 import { Metadata } from "next";
+import { deleteOrder, getAllOrders } from "@/lib/actions/order.actions";
 import {
   Table,
   TableBody,
@@ -10,19 +9,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 import Pagination from "@/components/shared/pagination";
+import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import DeleteDialog from "@/components/shared/delete-dialog";
 
 export const metadata: Metadata = {
-  title: "My orders",
+  title: "Admin Orders",
 };
 
-const OrdersPage = async (props: {
+const AdminOrdersPage = async (props: {
   searchParams: Promise<{ page: string }>;
 }) => {
-  const { page } = await props.searchParams;
-  const orders = await getMyOrders({
-    page: Number(page) || 1,
+  await requireAdmin();
+
+  const { page = "1" } = await props.searchParams;
+
+  const orders = await getAllOrders({
+    page: Number(page),
   });
 
   return (
@@ -68,6 +73,7 @@ const OrdersPage = async (props: {
                   <Button asChild variant="outline" size="sm">
                     <Link href={`/order/${order.id}`}>Details</Link>
                   </Button>
+                  <DeleteDialog id={order.id} action={deleteOrder} />
                 </TableCell>
               </TableRow>
             ))}
@@ -81,4 +87,4 @@ const OrdersPage = async (props: {
   );
 };
 
-export default OrdersPage;
+export default AdminOrdersPage;
