@@ -2,8 +2,6 @@ import { z } from "zod";
 import { formatNumberWithDecimal } from "./utils";
 import { PAYMENT_METHODS } from "./constants";
 
-// inserting products schema
-
 const currency = z
   .string()
   .refine(
@@ -11,6 +9,7 @@ const currency = z
     "Price must have exactly two decimal places"
   );
 
+// inserting products schema
 export const insertProductsSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
   slug: z.string().min(3, "Slug must be atleast 3 characters"),
@@ -19,9 +18,14 @@ export const insertProductsSchema = z.object({
   description: z.string().min(3, "Description must be atleast 3 characters"),
   stock: z.coerce.number(),
   images: z.array(z.string()).min(1, "Product must have atleast one image"),
-  isFeatured: z.boolean(),
-  banner: z.string().nullable(),
+  // isFeatured: z.boolean(),
+  // banner: z.string().nullable(),
   price: currency,
+});
+
+//schema for updating products
+export const updateProductSchema = insertProductsSchema.extend({
+  id: z.string().min(1, "Id is required"),
 });
 
 // schema for signing users in
