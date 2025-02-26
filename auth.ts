@@ -4,7 +4,7 @@ import { authConfig } from "./auth.config";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/db/prisma";
 import { cookies } from "next/headers";
-import { compare } from "./lib/encrypt";
+import { compare } from "bcrypt-ts-edge";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const config = {
@@ -24,6 +24,7 @@ export const config = {
         password: { type: "password" },
       },
       async authorize(credentials) {
+        console.log("Credentials received:", credentials);
         if (credentials == null) return null;
 
         // Find user in database
@@ -32,6 +33,7 @@ export const config = {
             email: credentials.email as string,
           },
         });
+        console.log("User found", user);
 
         // Check if user exists and if the password matches
         if (user && user.password) {
@@ -39,6 +41,7 @@ export const config = {
             credentials.password as string,
             user.password
           );
+          console.log("Password Match:", isMatch);
 
           // If password is correct, return user
           if (isMatch) {
