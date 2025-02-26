@@ -127,3 +127,9 @@ export const updateProfileSchema = z.object({
   name: z.string().min(3, "Name must be atleast 3 characters"),
   email: z.string().min(3, "Email must be atleast 3 characters"),
 });
+
+//schema to update user
+export const updateUserSchema = updateProfileSchema.extend({
+  id: z.string().min(1, "Id is required"),
+  role: z.string().min(1, "Role is required"),
+});
