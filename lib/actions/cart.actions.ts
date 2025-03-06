@@ -16,7 +16,7 @@ const calcPrice = (items: CartItem[]) => {
     ),
     shippingPrice = round2(itemsPrice > 100 ? 0 : 10),
     taxPrice = round2(0.16 * itemsPrice),
-    totalPrice = round2(itemsPrice + taxPrice + shippingPrice);
+    totalPrice = round2(itemsPrice + shippingPrice);
 
   return {
     itemsPrice: itemsPrice.toFixed(2),

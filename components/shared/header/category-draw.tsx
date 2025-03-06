@@ -23,7 +23,7 @@ const CategoryDraw = async () => {
       </DrawerTrigger>
       <DrawerContent className="h-full max-w-sm">
         <DrawerHeader>
-          <DrawerTitle>Select a category</DrawerTitle>
+          <DrawerTitle>Category</DrawerTitle>
           <div className="space-y-1 mt-4">
             {categories.map((x) => (
               <Button
